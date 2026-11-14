@@ -1,0 +1,40 @@
+{
+  "name": "@eurth/calendar",
+  "version": "1.0.0",
+  "description": "A small date engine for invented calendars: day counts, custom calendar dates and Gregorian dates, moon phases, holidays and formatting. The engine behind Calendar (cal.eurth.org) and Time (time.eurth.org), by Eurth.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Orioni (https://eurth.org)",
+  "homepage": "https://eurth.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eurth-org/eurth-calendar.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "sideEffects": false,
+  "files": [
+    "lib",
+    "roadmap.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "check": "tsc -p tsconfig.json",
+    "build:engine": "node tools/build-engine.mjs",
+    "test": "vitest run",
+    "soak": "node tools/soak.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

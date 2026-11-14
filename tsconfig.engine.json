@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "rootDir": "src/engine",
+    "outDir": "lib",
+    "types": [],
+    "lib": ["ES2023", "DOM"]
+  },
+  "include": ["src/engine/**/*.ts"]
+}
