@@ -7,7 +7,7 @@ A calendar of your own. Calendar will be a free online calendar maker for worldb
 This repository holds two things:
 
 1. **`@eurth/calendar`**, the date engine: a small TypeScript library with no dependencies that turns a calendar definition into dates, weekdays, moon phases and holidays. Released, and used by Time (time.eurth.org) as well.
-2. **The site** at cal.eurth.org. Not built yet: it starts once `@eurth/style` 1.0.0 is released.
+2. **The site** at cal.eurth.org. Not built yet: it starts once `@eurth/style` 1.0.0 is released. Its plain logic (`src/maker/`) and its words (`src/content/`) are written and tested, waiting for pages to use them.
 
 Status: engine 1.0.0 released; site to come. See the [roadmap](roadmap.md) for what's next, what each release added and what's not planned.
 
@@ -173,7 +173,12 @@ A section with no `definition` (written by hand, say) still gives a plain calend
 | iCalendar export | `src/engine/ical.ts` |
 | The presets | `src/engine/presets.ts` |
 | The built package (committed) | `lib/` |
-| Tests | `tests/engine/` |
+| A month as rows of weeks, the year as grids, turning pages | `src/maker/grid.ts` |
+| Edits that keep leap rules and holidays pointing the right way; "Very tidy." | `src/maker/edit.ts` |
+| The PDF writer (no dependencies) | `src/maker/pdf.ts` |
+| A year laid out on A4 or Letter | `src/maker/print.ts` |
+| The guide, the glossary and the examples, as data | `src/content/` |
+| Tests | `tests/engine/`, `tests/maker/`, `tests/content/` |
 
 ## Development
 

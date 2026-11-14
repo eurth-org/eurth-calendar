@@ -8,29 +8,24 @@ Three parts: what comes next, what each release added (newest first), and what's
 
 For a new session: read `CLAUDE.md` (the brief), then this section.
 
-- **Done:** steps 1 to 4 of the brief as far as the engine goes. The repository exists, the brief is saved, and `@eurth/calendar` 1.0.0 is released (tag `v1.0.0`) with its tests, presets and README.
-- **Next, without `@eurth/style`:** the content and the remaining plain logic listed under "Next" below (guide, glossary, examples, the PDF writer, the month-grid and year-view logic).
+- **Done:** steps 1 to 4 of the brief.
+  - The repository exists and the brief is saved.
+  - `@eurth/calendar` 1.0.0 is released (tag `v1.0.0`) with its tests, presets and README: `src/engine/`, built to `lib/`.
+  - The maker's own logic is written and tested, ready for the site to draw from: `src/maker/grid.ts` (a month as rows of weeks, the year as grids, turning pages), `src/maker/edit.ts` (adding, removing and moving months and the rest without breaking leap rules or holidays; "Very tidy."), `src/maker/pdf.ts` (a PDF writer with no dependencies) and `src/maker/print.ts` (a year laid out on A4 or Letter).
+  - The words are written as data for the pages to import: `src/content/guide.ts`, `src/content/glossary.ts`, `src/content/examples.ts`.
 - **Blocked:** the site (step 5). Do not scaffold pages or styles until `@eurth/style` 1.0.0 is released: check `gh release list -R eurth-org/eurth-style`. On 14 November 2026 it had no release and no `HANDBOOK.md` yet. When it is out, start from its starter template and read `HANDBOOK.md` first; it wins over the brief on everything shared.
-- **Keep true while building the site:** this repository's root `package.json` is the `@eurth/calendar` package. Everything the site needs goes in `devDependencies`, never `dependencies`, and there is no `prepare` script; otherwise Time's install breaks. `tests/engine/lib.test.ts` checks this. The site's build goes to `dist/` (ignored); the engine's goes to `lib/` (committed).
+- **Keep true while building the site:** this repository's root `package.json` is the `@eurth/calendar` package. Everything the site needs goes in `devDependencies`, never `dependencies`, and there is no `prepare` script; otherwise Time's install breaks. `tests/engine/lib.test.ts` checks this. The site's build goes to `dist/` (ignored); the engine's goes to `lib/` (committed). If the starter template brings its own `package.json`, merge it into this one rather than replacing it.
 
 ## Next
-
-### Before the site (needs nothing from `@eurth/style`)
-
-- **Guide text:** how real calendars handle the year (solar, lunar, lunisolar), leap rules, weeks and eras, with sources and a last-updated date.
-- **Glossary:** the terms the maker and the guide use (intercalary, epoch, era, leap year, lunation, synodic month, perennial calendar and the rest), as data for a DefinedTermSet.
-- **Examples page content:** the five presets written up, each with what to notice and what to change first.
-- **Printable year:** a small PDF writer in plain TypeScript (A4 and Letter, the device's fonts are not available in a PDF, so the standard Helvetica), and the layout of a year onto pages. Tested without a browser.
-- **Month grid and year view logic:** rows of weeks for a month, with days outside the week shown in their own row; plain functions over `calendar.year()`, tested.
-- **The maker's state:** editing operations on a definition (add, remove and move months; keep leap rules and holidays pointing at the right month when one is removed), undo and redo, and "Very tidy." detection (13 months of 28 days, on Midyear Day).
 
 ### The site (once `@eurth/style` 1.0.0 is out)
 
 - Start from the starter template; pages: Maker, Guide, Glossary, Examples.
 - The maker, v1: name and eras, months, intercalary days, week, leap rules, epoch, moons, holidays; views (month grid with moon phases and holidays as word and icon, the whole year, the converter between Earth dates and the calendar); the five presets.
 - The calendar lives in its link (`?d=` with `encodeCalendar`); the profile's `calendar` section saves and loads it as a file.
-- Exports: printable year (A4 and Letter PDF), iCal of holidays, the definition as JSON, Copy description, and "Use in a timeline" (`calendarLink('https://time.eurth.org/', definition)`, only shown once Time has launched).
+- Exports: printable year (A4 and Letter; `printYear` and `writePdf` are ready, the site adds the download and, for names Helvetica cannot print, draws the same shapes on a canvas and passes the pictures to `writePdf`), iCal of holidays, the definition as JSON, Copy description, and "Use in a timeline" (`calendarLink('https://time.eurth.org/', definition)`, only shown once Time has launched).
 - Signature touch: switching months turns the page like a desk calendar. Easter egg: "Very tidy." on Midyear Day in a calendar of 13 months of 28 days.
+- Check every link in the guide's sources once more before launch.
 - Everything in the handbook's checklist: SEO pages and JSON-LD, Open Graph images, service worker, manifest, security headers, axe and Lighthouse, the launch workflow with `LAUNCH_AT` for 16 December.
 - Add `docs/feedback-log.md` entries as feedback arrives.
 
